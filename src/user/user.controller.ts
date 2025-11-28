@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserFindAllDTO } from './dto/user-response.dto';
 import { UserSaveDTO } from './dto/user-save.dto';
 import { UserUpdateDTO } from './dto/user-update.dto';
+import { JwtAuthGuard } from '../auth/infrastructure/guards/jwt-auth.guard';
 
 @ApiTags('User')
 @Controller('user')
@@ -42,6 +44,7 @@ export class UserController {
     return await this.userService.findAllUsers();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:userId')
   @ApiResponse({
     status: 200,

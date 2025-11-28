@@ -11,6 +11,14 @@ import { UserUpdateDTO } from './dto/user-update.dto';
 import { IUserService } from './domain/interfaces/user.service.interface';
 import { TransactionManager } from '../core/infrastructure/persistence/relational/database/transaction-maganer';
 
+const mockUser = {
+  id: '123',
+  email: 'test@demo.com',
+  password: '$2b$10$OZWi9iQxwN2VnY8eTktb.WgkE8AjtKoa6HgMHqmpYyqn1nVbWcv16',
+  // password real = "123456"
+  roles: ['admin'],
+};
+
 @Injectable()
 export class UserService implements IUserService {
   constructor(
@@ -24,6 +32,11 @@ export class UserService implements IUserService {
 
   public async findByUserId(id: number): Promise<UserFindAllDTO | null> {
     return this.userRepository.findByUserId(id);
+  }
+
+  public async findUserByEmail(email: string): Promise<UserFindAllDTO | any> {
+    // return this.userRepository.findUserByEmail(email);
+    return email === mockUser.email ? mockUser : null;
   }
 
   public async saveUser(saveDTO: UserSaveDTO): Promise<UserFindAllDTO> {
