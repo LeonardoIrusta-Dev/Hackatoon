@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 import { BaseEntity } from '../../../../../core/infrastructure/persistence/relational/entities/base.entity';
 
-@Entity({ name: 'Personal' })
-export class PersonalEntity extends BaseEntity {
+@Entity({ name: 'Usuario' })
+export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn({ name: 'Id' })
   public id: number;
 
@@ -19,9 +19,6 @@ export class PersonalEntity extends BaseEntity {
   @Column({ name: 'NroDocumento', nullable: true })
   public nroDocumento: string;
 
-  @Column({ name: 'Teleono', nullable: true })
+  @Column({ name: 'Telefono', nullable: true })
   public telefono: string;
-
-  @Column({ name: 'Activo', nullable: true })
-  public activo: boolean;
 }

@@ -1,6 +1,6 @@
-import { PersonalFindAllDTO } from '../../../personal/dto/personal-response.dto';
+import { UserFindAllDTO } from '../../../user/dto/user-response.dto';
 
-export const personalMockResult: PersonalFindAllDTO = {
+export const userMockResult: UserFindAllDTO = {
   id: 1,
   nombre: 'John',
   apellido: 'Doe',

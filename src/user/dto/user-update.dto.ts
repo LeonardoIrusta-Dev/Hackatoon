@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { NAME_NUMBER_REGEX, NAME_REGEX } from '../../utils/constants/constants';
 
-export class PersonalUpdateDTO {
+export class UserUpdateDTO {
   @ApiProperty({
     pattern: '^[A-Za-zÁÉÍÓÚÑÜáéíóúñü\\s]+$',
     description: 'El campo Nombre solo debe tener letras',
@@ -58,10 +58,4 @@ export class PersonalUpdateDTO {
     message: 'El teléfono ingresado excede los 15 caracteres esperados.',
   })
   public telefono?: string;
-
-  @IsOptional()
-  @ApiPropertyOptional({
-    description: 'El campo activo debe ser true o false',
-  })
-  public activo?: boolean;
 }

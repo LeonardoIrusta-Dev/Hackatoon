@@ -3,132 +3,129 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { IPersonalService } from '../../../personal/domain/interfaces/personal.service.interface';
-import { PersonalController } from '../../../personal/personal.controller';
-import { PersonalService } from '../../../personal/personal.service';
-import { personalMockResult } from '../../mocks/personal/personal.mock.result';
-import {
-  personalMockSave,
-  personalMockUpdate,
-} from '../../mocks/personal/personal.mock.send';
-import { mockPersonalService } from '../../mocks/services-mocks/personal.service.mock';
+import { UserController } from '../../../user/user.controller';
+import { IUserService } from '../../../user/domain/interfaces/user.service.interface';
 import { createControllerTestingModule } from '../../utils/create-testing-controller-module';
+import { UserService } from '../../../user/user.service';
+import { mockUserService } from '../../mocks/services-mocks/user.service.mock';
+import { userMockResult } from '../../mocks/user/personal.mock.result';
+import {
+  userMockSave,
+  userMockUpdate,
+} from '../../mocks/user/personal.mock.send';
 
-describe('PersonalController', () => {
-  let controller: PersonalController;
-  let service: jest.Mocked<IPersonalService>;
+describe('UserController', () => {
+  let controller: UserController;
+  let service: jest.Mocked<IUserService>;
 
   beforeEach(async () => {
     const { controller: c } = await createControllerTestingModule(
-      PersonalController,
+      UserController,
       [
         {
-          provide: PersonalService,
-          useValue: mockPersonalService,
+          provide: UserService,
+          useValue: mockUserService,
         },
       ],
     );
     controller = c;
 
-    service = mockPersonalService as jest.Mocked<IPersonalService>;
+    service = mockUserService as jest.Mocked<IUserService>;
 
     jest.clearAllMocks();
   });
 
-  describe('findAllPersonals', () => {
-    it('should return personals', async () => {
-      service.findAllPersonals.mockResolvedValue([personalMockResult]);
+  describe('findAllUsers', () => {
+    it('should return User', async () => {
+      service.findAllUsers.mockResolvedValue([userMockResult]);
 
-      const result = await controller.findAllPersonals();
+      const result = await controller.findAllUsers();
 
-      expect(result).toEqual([personalMockResult]);
-      expect(service.findAllPersonals).toHaveBeenCalledTimes(1);
+      expect(result).toEqual([userMockResult]);
+      expect(service.findAllUsers).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('findByPersonalId', () => {
-    it('should return personal by Id', async () => {
-      service.findByPersonalId.mockResolvedValue(personalMockResult);
+  describe('findByUserId', () => {
+    it('should return user by Id', async () => {
+      service.findByUserId.mockResolvedValue(userMockResult);
 
-      const result = await controller.findPersonalById('1');
+      const result = await controller.findByUserId('1');
 
-      expect(result).toEqual(personalMockResult);
-      expect(service.findByPersonalId).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(userMockResult);
+      expect(service.findByUserId).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('savePersonal', () => {
-    it('should create a new Personal', async () => {
-      service.savePersonal.mockResolvedValue(personalMockResult);
+  describe('saveUser', () => {
+    it('should create a new User', async () => {
+      service.saveUser.mockResolvedValue(userMockResult);
 
-      const result = await controller.save(personalMockSave);
+      const result = await controller.save(userMockSave);
 
-      expect(service.savePersonal).toHaveBeenCalledWith(personalMockSave);
-      expect(result).toEqual(personalMockResult);
+      expect(service.saveUser).toHaveBeenCalledWith(userMockSave);
+      expect(result).toEqual(userMockResult);
     });
 
     it('should throw if service throws BadRequestException', async () => {
       const error = new BadRequestException('No se pudo guardar el personal');
-      service.savePersonal.mockRejectedValue(error);
+      service.saveUser.mockRejectedValue(error);
 
-      await expect(controller.save(personalMockSave)).rejects.toThrow(
+      await expect(controller.save(userMockSave)).rejects.toThrow(
         BadRequestException,
       );
 
-      expect(service.savePersonal).toHaveBeenCalledWith(personalMockSave);
+      expect(service.saveUser).toHaveBeenCalledWith(userMockSave);
     });
   });
 
-  describe('UpdatePersonal', () => {
-    it('should update a Personal', async () => {
-      service.updatePersonal.mockResolvedValue(personalMockResult);
+  describe('UpdateUser', () => {
+    it('should update a User', async () => {
+      service.updateUser.mockResolvedValue(userMockResult);
 
-      const result = await controller.update(personalMockUpdate, '1');
+      const result = await controller.update(userMockUpdate, '1');
 
-      expect(service.updatePersonal).toHaveBeenCalledWith(
-        1,
-        personalMockUpdate,
-      );
-      expect(result).toEqual(personalMockResult);
+      expect(service.updateUser).toHaveBeenCalledWith(1, userMockUpdate);
+      expect(result).toEqual(userMockResult);
     });
 
-    it('should throw NotFoundException if personal not found', async () => {
-      service.updatePersonal.mockRejectedValue(
-        new NotFoundException('El personal con id 1 no fue encontrado'),
+    it('should throw NotFoundException if user not found', async () => {
+      service.updateUser.mockRejectedValue(
+        new NotFoundException('El user con id 1 no fue encontrado'),
       );
 
-      await expect(controller.update(personalMockUpdate, '1')).rejects.toThrow(
+      await expect(controller.update(userMockUpdate, '1')).rejects.toThrow(
         NotFoundException,
       );
     });
 
     it('should throw BadRequestException if unknown error occurs', async () => {
-      service.updatePersonal.mockRejectedValue(
-        new BadRequestException('No se pudo actualizar el personal'),
+      service.updateUser.mockRejectedValue(
+        new BadRequestException('No se pudo actualizar el user'),
       );
 
-      await expect(controller.update(personalMockUpdate, '1')).rejects.toThrow(
+      await expect(controller.update(userMockUpdate, '1')).rejects.toThrow(
         BadRequestException,
       );
     });
   });
 
-  describe('desactivatePersonal', () => {
-    it('should desactivate a Personal', async () => {
-      service.desactivatePersonal.mockResolvedValue({
-        message: 'El personal ha sido desactivado correctamente.',
+  describe('desactivateUser', () => {
+    it('should desactivate a User', async () => {
+      service.desactivateUser.mockResolvedValue({
+        message: 'El usuario ha sido desactivado correctamente.',
       });
 
       const result = await controller.desactivePersonal('1');
 
-      expect(service.desactivatePersonal).toHaveBeenCalledWith(1);
+      expect(service.desactivateUser).toHaveBeenCalledWith(1);
       expect(result).toEqual({
-        message: 'El personal ha sido desactivado correctamente.',
+        message: 'El usuario ha sido desactivado correctamente.',
       });
     });
 
     it('should throw BadRequestException if personal cannot be desactivated', async () => {
-      service.desactivatePersonal.mockRejectedValue(
+      service.desactivateUser.mockRejectedValue(
         new BadRequestException(
           'El registro no se puede desactivar porque está activo o no existe.',
         ),
@@ -138,11 +135,11 @@ describe('PersonalController', () => {
         BadRequestException,
       );
 
-      expect(service.desactivatePersonal).toHaveBeenCalledWith(1);
+      expect(service.desactivateUser).toHaveBeenCalledWith(1);
     });
 
     it('should throw InternalServerErrorException on unknown error', async () => {
-      service.desactivatePersonal.mockRejectedValue(
+      service.desactivateUser.mockRejectedValue(
         new InternalServerErrorException('Error interno del servidor'),
       );
 
@@ -150,7 +147,7 @@ describe('PersonalController', () => {
         InternalServerErrorException,
       );
 
-      expect(service.desactivatePersonal).toHaveBeenCalledWith(1);
+      expect(service.desactivateUser).toHaveBeenCalledWith(1);
     });
   });
 });
