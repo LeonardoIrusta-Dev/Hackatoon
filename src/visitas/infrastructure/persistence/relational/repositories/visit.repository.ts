@@ -75,7 +75,7 @@ export class VisitRepository
     const result = await this.visitRepository
       .createQueryBuilder()
       .update()
-      .set({ deletedAt: new Date() })
+      .set({ Fec_Baja: new Date() })
       .where('id = :visitId', { visitId })
       .execute();
 
