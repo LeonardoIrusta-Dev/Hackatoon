@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { NAME_NUMBER_REGEX, NAME_REGEX } from '../../utils/constants/constants';
 
-export class PersonalSaveDTO {
+export class UserSaveDTO {
   @ApiProperty({
     pattern: '^[A-Za-zÁÉÍÓÚÑÜáéíóúñü\\s]+$',
     description: 'El campo Nombre solo debe tener letras',

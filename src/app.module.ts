@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PersonalModule } from './personal/personal.module';
+import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -23,7 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         trustServerCertificate: true,
       },
     }),
-    PersonalModule,
+    UserModule,
   ],
 })
 export class AppModule {}

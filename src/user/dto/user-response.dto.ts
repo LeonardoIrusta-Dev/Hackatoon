@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
-export class PersonalFindAllDTO {
+export class UserFindAllDTO {
   @ApiProperty()
   @Expose()
   public id: number;
