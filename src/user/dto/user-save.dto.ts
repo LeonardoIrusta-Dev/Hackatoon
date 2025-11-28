@@ -23,33 +23,21 @@ export class UserSaveDTO {
   public nombre: string;
 
   @ApiProperty({
-    pattern: '^[A-Za-zÁÉÍÓÚÑÜáéíóúñü\\s]+$',
-    description: 'El campo Apellido solo debe tener letras',
-    example: 'Olmos',
-  })
-  @IsNotEmpty({ message: 'El campo apellido no puede estar vacio' })
-  @Matches(NAME_REGEX, {
-    message:
-      'El campo apellido no puede contener números ni otros caracteres especiales',
-  })
-  public apellido: string;
-
-  @ApiProperty({
     example: 'prueba123@exmaple.com',
   })
-  @IsEmail({}, { message: 'El formato del campo email es incorrecto' })
-  @IsNotEmpty({ message: 'El campo email no puede estar vacio' })
-  public email: string;
+  @IsEmail({}, { message: 'El formato del campo mail es incorrecto' })
+  @IsNotEmpty({ message: 'El campo mail no puede estar vacio' })
+  public mail: string;
 
   @ApiProperty({
     description: 'El número de documento debe tener entre 7 y 8 dígitos',
     example: '12345678',
   })
-  @IsNotEmpty({ message: 'El campo nroDocumento no puede estar vacio' })
+  @IsNotEmpty({ message: 'El campo dni no puede estar vacio' })
   @Length(7, 8, {
-    message: 'El número de documento debe tener entre 7 y 8 dígitos',
+    message: 'El dni debe tener entre 7 y 8 dígitos',
   })
-  public nroDocumento: string;
+  public dni: string;
 
   @IsOptional()
   @ApiPropertyOptional({

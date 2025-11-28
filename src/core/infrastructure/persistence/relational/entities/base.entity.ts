@@ -7,20 +7,20 @@ import {
 
 export abstract class BaseEntity {
   @CreateDateColumn({ name: 'Fec_Alta' })
-  createdAt: Date;
+  Fec_Alta: Date;
 
   @Column({ name: 'Usr_Alta', nullable: true })
-  createdUserId: number;
+  Usr_Alta: number;
 
   @UpdateDateColumn({ name: 'Fec_Modif', nullable: true })
-  updatedAt: Date;
+  Fec_Modif: Date;
 
   @Column({ name: 'Usr_Modif', nullable: true })
-  updatedUserId: number;
+  Usr_Modif: number;
 
   @DeleteDateColumn({ name: 'Fec_Baja', nullable: true })
-  deletedAt: Date;
+  Fec_Baja: Date;
 
   @Column({ name: 'Usr_Baja', nullable: true })
-  deletedUserId: number;
+  Usr_Baja: number;
 }

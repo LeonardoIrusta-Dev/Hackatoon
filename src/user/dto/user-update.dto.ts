@@ -21,22 +21,11 @@ export class UserUpdateDTO {
   public nombre?: string;
 
   @ApiProperty({
-    pattern: '^[A-Za-zÁÉÍÓÚÑÜáéíóúñü\\s]+$',
-    description: 'El campo Apellido solo debe tener letras',
-  })
-  @IsOptional()
-  @Matches(NAME_REGEX, {
-    message:
-      'El campo apellido no puede contener números ni otros caracteres especiales',
-  })
-  public apellido?: string;
-
-  @ApiProperty({
     example: 'asdas@asdsd.com',
   })
   @IsEmail({}, { message: 'El formato del campo email es incorrecto' })
   @IsOptional()
-  public email?: string;
+  public mail?: string;
 
   @ApiProperty({
     description: 'El número de documento debe tener entre 7 y 8 dígitos',
@@ -45,7 +34,7 @@ export class UserUpdateDTO {
   @Length(7, 8, {
     message: 'El número de documento debe tener entre 7 y 8 dígitos',
   })
-  public nroDocumento?: string;
+  public dni?: string;
 
   @IsOptional()
   @ApiPropertyOptional({
