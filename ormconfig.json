@@ -1,0 +1,13 @@
+{
+  "type": "mssql",
+  "host": "localhost",
+  "port": 1433,
+  "username": "sa",
+  "password": "VeranoFeliz2024!",
+  "database": "mydatabase",
+  "entities": ["dist/**/*.entity.js"],
+  "migrations": ["dist/migrations/**/*.js"],
+  "cli": {
+    "migrationsDir": "src/migrations"
+  }
+}
