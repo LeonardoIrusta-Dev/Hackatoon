@@ -12,27 +12,31 @@ export class AuthService {
   ) {}
 
   async login(data: LoginDto): Promise<any> {
-    const user = await this.userService.findUserByEmail(data.email);
+    const user = await this.userService.findEntityByEmail(data.email);
 
     if (!user) {
-      throw new BadRequestException('User not exsist');
+      throw new BadRequestException('User not exist');
     }
 
-    // const isValid = await comparePassword(data.password, user);
+    if (!user.credenciales) {
+      throw new BadRequestException('Incorrect email or password');
+    }
 
-    // if (!isValid) {
-    //   throw new BadRequestException('Incorrect email or password');
-    // }
+    const isValid = await comparePassword(data.password, user.credenciales);
+
+    if (!isValid) {
+      throw new BadRequestException('Incorrect email or password');
+    }
 
     const token = await this.jwtService.signAsync({
       sub: user.id,
-      email: user.email,
+      email: user.mail,
     });
 
     return {
       token,
       id: user.id,
-      email: user.email,
+      email: user.mail,
     };
   }
 }

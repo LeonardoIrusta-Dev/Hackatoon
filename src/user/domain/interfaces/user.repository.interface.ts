@@ -8,6 +8,7 @@ export interface IUserRepository {
   findAllUsers(): Promise<UserFindAllDTO[]>;
   findByUserId(id: number): Promise<UserFindAllDTO | null>;
   findUserByEmail(email: string): Promise<UserFindAllDTO | null>;
+  findEntityByEmail(email: string): Promise<UserEntity | null>;
   saveUser(
     user: UserSaveDTO,
     entityManager?: EntityManager,

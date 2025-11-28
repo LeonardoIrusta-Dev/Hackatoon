@@ -10,6 +10,7 @@ import { UserSaveDTO } from './dto/user-save.dto';
 import { UserUpdateDTO } from './dto/user-update.dto';
 import { IUserService } from './domain/interfaces/user.service.interface';
 import { TransactionManager } from '../core/infrastructure/persistence/relational/database/transaction-maganer';
+import { UserEntity } from './infrastructure/persistence/relational/entities/user.entity';
 
 const mockUser = {
   id: '123',
@@ -34,9 +35,15 @@ export class UserService implements IUserService {
     return this.userRepository.findByUserId(id);
   }
 
-  public async findUserByEmail(email: string): Promise<UserFindAllDTO | any> {
-    // return this.userRepository.findUserByEmail(email);
-    return email === mockUser.email ? mockUser : null;
+  public async findUserByEmail(email: string): Promise<UserFindAllDTO | null> {
+    return this.userRepository.findUserByEmail(email);
+  }
+
+  /**
+   * Returns the actual entity with relations for internal operations (e.g. authentication)
+   */
+  public async findEntityByEmail(email: string): Promise<UserEntity | null> {
+    return this.userRepository.findEntityByEmail(email);
   }
 
   public async saveUser(saveDTO: UserSaveDTO): Promise<UserFindAllDTO> {

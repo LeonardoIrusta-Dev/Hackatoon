@@ -10,5 +10,7 @@ export const comparePassword = async (
   password: string,
   credentials: any,
 ): Promise<boolean> => {
-  return await bcrypt.compare(password, credentials.password);
+  // credentials may be the CredencialesEntity having property 'contrasena'
+  const hashed = credentials?.contrasena ?? credentials?.password ?? '';
+  return await bcrypt.compare(password, hashed);
 };

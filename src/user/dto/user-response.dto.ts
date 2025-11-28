@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
+import { RolDTO } from '../../rol/dto/rol.dto';
+import { UserCredencialesDTO } from '../../credentials/dto/credential.response.dto';
 
 export class UserFindAllDTO {
   @ApiProperty()
@@ -12,21 +14,22 @@ export class UserFindAllDTO {
 
   @ApiProperty()
   @Expose()
-  public apellido: string;
+  public mail: string;
 
   @ApiProperty()
   @Expose()
-  public email: string;
-
-  @ApiProperty()
-  @Expose()
-  public nroDocumento: string;
+  public dni: string;
 
   @ApiProperty()
   @Expose()
   public telefono: string;
 
+  @ApiProperty({ type: [RolDTO] })
+  @Expose()
+  @Type(() => RolDTO)
+  roles?: RolDTO[];
+
   @ApiProperty()
   @Expose()
-  public activo: boolean;
+  public credenciales?: UserCredencialesDTO;
 }

@@ -46,15 +46,34 @@ export class UserRepository
   }
 
   async findByUserId(id: number): Promise<UserFindAllDTO | null> {
-    const find = await this.userRepository.findOne({ where: { id } });
+    const find = await this.userRepository.findOne({
+      where: { id },
+      relations: ['usuariosRoles', 'usuariosRoles.rol', 'credenciales'],
+    });
+
     if (!find) return null;
     return UserMapper.fromEntityToResponseDTO(find);
   }
 
-  async findUserByEmail(email: string): Promise<UserFindAllDTO | null> {
-    const find = await this.userRepository.findOne({ where: { email } });
+  async findUserByEmail(mail: string): Promise<UserFindAllDTO | null> {
+    const find = await this.userRepository.findOne({
+      where: { mail },
+      relations: ['usuariosRoles', 'usuariosRoles.rol', 'credenciales'],
+    });
+
     if (!find) return null;
     return UserMapper.fromEntityToResponseDTO(find);
+  }
+
+  async findEntityByEmail(mail: string): Promise<UserEntity | null> {
+    const find = await this.userRepository.findOne({
+      where: { mail },
+      relations: ['usuariosRoles', 'usuariosRoles.rol', 'credenciales'],
+    });
+
+    if (!find) return null;
+
+    return find;
   }
 
   async saveUser(saveDTO: UserSaveDTO, manager?: any): Promise<UserFindAllDTO> {
@@ -79,7 +98,7 @@ export class UserRepository
     const result = await this.userRepository
       .createQueryBuilder()
       .update()
-      .set({ deletedAt: new Date() })
+      .set({ Fec_Baja: new Date() })
       .where('id = :personalId', { userId })
       .execute();
 

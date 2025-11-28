@@ -8,9 +8,8 @@ export class UserMapper {
     const userEntity = new UserEntity();
 
     userEntity.nombre = userSaveDTO.nombre;
-    userEntity.apellido = userSaveDTO.apellido;
-    userEntity.email = userSaveDTO.email;
-    userEntity.nroDocumento = userSaveDTO.nroDocumento;
+    userEntity.mail = userSaveDTO.mail;
+    userEntity.dni = userSaveDTO.dni;
     userEntity.telefono = userSaveDTO.telefono;
 
     return userEntity;
@@ -21,10 +20,16 @@ export class UserMapper {
 
     userFindAllDTO.id = entity.id;
     userFindAllDTO.nombre = entity.nombre;
-    userFindAllDTO.apellido = entity.apellido;
-    userFindAllDTO.email = entity.email;
-    userFindAllDTO.nroDocumento = entity.nroDocumento;
+    userFindAllDTO.mail = entity.mail;
+    userFindAllDTO.dni = entity.dni;
     userFindAllDTO.telefono = entity.telefono;
+
+    userFindAllDTO.roles =
+      entity.usuariosRoles?.map((ur) => ({
+        id: ur.rol.id,
+        nombre: ur.rol.nombre,
+        descripcion: ur.rol.descripcion,
+      })) ?? [];
 
     return userFindAllDTO;
   }
