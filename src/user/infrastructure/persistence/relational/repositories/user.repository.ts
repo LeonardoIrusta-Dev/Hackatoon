@@ -51,6 +51,12 @@ export class UserRepository
     return UserMapper.fromEntityToResponseDTO(find);
   }
 
+  async findUserByEmail(email: string): Promise<UserFindAllDTO | null> {
+    const find = await this.userRepository.findOne({ where: { email } });
+    if (!find) return null;
+    return UserMapper.fromEntityToResponseDTO(find);
+  }
+
   async saveUser(saveDTO: UserSaveDTO, manager?: any): Promise<UserFindAllDTO> {
     const repo = this.getRepository(manager);
     const save = await repo.save(UserMapper.frontSaveDTOtoEntity(saveDTO));

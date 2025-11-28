@@ -11,5 +11,6 @@ import { CoreEntityRelationalPersistenceModule } from '../core/infrastructure/pe
   ],
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService],
 })
 export class UserModule {}
