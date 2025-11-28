@@ -5,6 +5,7 @@ import { UserUpdateDTO } from '../../dto/user-update.dto';
 export interface IUserService {
   findAllUsers(): Promise<UserFindAllDTO[]>;
   findByUserId(id: number): Promise<UserFindAllDTO | null>;
+  findUserByEmail(email: string): Promise<UserFindAllDTO | null>;
   saveUser(saveDTO: UserSaveDTO): Promise<UserFindAllDTO>;
   updateUser(
     userId: number,

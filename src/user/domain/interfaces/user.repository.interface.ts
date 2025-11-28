@@ -7,6 +7,7 @@ import { UserSaveDTO } from '../../dto/user-save.dto';
 export interface IUserRepository {
   findAllUsers(): Promise<UserFindAllDTO[]>;
   findByUserId(id: number): Promise<UserFindAllDTO | null>;
+  findUserByEmail(email: string): Promise<UserFindAllDTO | null>;
   saveUser(
     user: UserSaveDTO,
     entityManager?: EntityManager,
