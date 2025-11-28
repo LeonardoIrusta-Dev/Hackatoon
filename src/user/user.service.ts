@@ -10,15 +10,6 @@ import { UserSaveDTO } from './dto/user-save.dto';
 import { UserUpdateDTO } from './dto/user-update.dto';
 import { IUserService } from './domain/interfaces/user.service.interface';
 import { TransactionManager } from '../core/infrastructure/persistence/relational/database/transaction-maganer';
-import { UserEntity } from './infrastructure/persistence/relational/entities/user.entity';
-
-const mockUser = {
-  id: '123',
-  email: 'test@demo.com',
-  password: '$2b$10$OZWi9iQxwN2VnY8eTktb.WgkE8AjtKoa6HgMHqmpYyqn1nVbWcv16',
-  // password real = "123456"
-  roles: ['admin'],
-};
 
 @Injectable()
 export class UserService implements IUserService {
@@ -35,14 +26,11 @@ export class UserService implements IUserService {
     return this.userRepository.findByUserId(id);
   }
 
-  public async findUserByEmail(email: string): Promise<UserFindAllDTO | null> {
+  public async findUserByEmail(email: string): Promise<UserFindAllDTO | any> {
     return this.userRepository.findUserByEmail(email);
   }
 
-  /**
-   * Returns the actual entity with relations for internal operations (e.g. authentication)
-   */
-  public async findEntityByEmail(email: string): Promise<UserEntity | null> {
+  public async findEntityByEmail(email: string): Promise<any | null> {
     return this.userRepository.findEntityByEmail(email);
   }
 
